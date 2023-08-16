@@ -1,0 +1,31 @@
+name: PyPI publish
+
+# on:
+#   push:
+#     tags:
+#       - "*.*.*"
+on: push
+
+jobs:
+  publish:
+    name: Upload release to PyPI
+    runs-on: ubuntu-latest
+    environment:
+      name: testpypi
+      url: https://test.pypi.org/p/autotypedict
+    permissions:
+      id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.x"
+    - name: Install build
+      run: python3 -m pip install -U --user build
+    - name: Build wheel
+      run: py -m build
+    - name: Publish package distributions to PyPI
+      uses: pypa/gh-action-pypi-publish@v1.8.10
+      with:
+        repository-url: https://test.pypi.org/legacy/
