@@ -24,7 +24,7 @@ jobs:
     - name: Install build
       run: python3 -m pip install -U --user build
     - name: Build wheel
-      run: py -m build
+      run: python3 -m build
     - name: Publish package distributions to PyPI
       uses: pypa/gh-action-pypi-publish@v1.8.10
       with:
