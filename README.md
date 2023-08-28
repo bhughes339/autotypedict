@@ -22,12 +22,16 @@ from autotypedict import AutoTypeDict
 
 ```python
 >>> d = {"foo": {"baz": "42"}, "bar": {"baz": "n/a", "qux": "true"}}
+
 >>> AutoTypeDict(d)  # typecast every value
 {'foo': {'baz': 42}, 'bar': {'baz': None, 'qux': True}}
+
 >>> AutoTypeDict(d, ignored_keys=("baz",))  # ignore "baz"
 {'foo': {'baz': '42'}, 'bar': {'baz': 'n/a', 'qux': True}}
+
 >>> AutoTypeDict(d, ignored_keys=("bar.baz",))  # ignore d["bar"]["baz"]
 {'foo': {'baz': 42}, 'bar': {'baz': 'n/a', 'qux': True}}
+
 >>> td = AutoTypeDict()
 >>> td.data = d  # updating data attribute to ignore typecasting
 >>> td
